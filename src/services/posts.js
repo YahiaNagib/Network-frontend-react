@@ -1,3 +1,6 @@
+
+import axios from "axios";
+
 const posts = [
   {
     user: {

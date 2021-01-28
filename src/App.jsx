@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import Post from "./components/post";
-import CreatePost from "./components/CreatePost";
-import posts from "./data/posts";
-import axios from "axios";
+import Main from './components/main';
 
 function App() {
+
   return (
     <div>
       <Header />
       <div className="body">
         <div className="site-container">
-          <CreatePost />
-
-          {posts.map((post) => {
-            return <Post post={post} />;
-          })}
+          <Switch>
+            <Route path="/" component={Main}/>
+            <Route path="/profile/:id" />
+          </Switch>
         </div>
       </div>
       <Footer />

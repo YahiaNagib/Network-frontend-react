@@ -8,11 +8,11 @@ function Post(props) {
 
   };
   return (
-    <div class="post">
-            <div class="post-owner">
-                <h2 class="post-username"> <a class="post-username" href="#">{user.name}</a></h2>
-                <p class="user-email">{user.email}</p>
-                <p class="post-date">{date}</p>
+    <div className="post">
+            <div className="post-owner">
+                <h2 className="post-username"> <a className="post-username" href="#">{user.name}</a></h2>
+                <p className="user-email">{user.email}</p>
+                <p className="post-date">{date}</p>
             </div>
             {/* {% if user == post.user %}
                 <button class="btn btn-link edit-btn">Edit</button>
@@ -23,9 +23,9 @@ function Post(props) {
                 </form>
             {% endif %} */}
             
-            <p class="post-content">{content}</p>
+            <p className="post-content">{content}</p>
 
-            <p class="post-like">
+            <p className="post-like">
                 {/* <input class="post-id" name="id" value="{{post.id}}" hidden/>
 
                 {% if not user.is_authenticated %}
@@ -39,7 +39,7 @@ function Post(props) {
                 {% endif %} */}
 
 
-                <span class="post-likes-number"></span>
+                <span className="post-likes-number"></span>
             </p>
         </div>
   );
