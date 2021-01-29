@@ -54,7 +54,7 @@ const Login = (props) => {
       .then((response) => {
         const jwt = response.data;
         localStorage.setItem("token", jwt);
-        props.history.push("/");
+        window.location("/");
       });
   };
 

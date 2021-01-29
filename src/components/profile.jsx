@@ -20,12 +20,25 @@ const Profile = (props) => {
     });
   }, []);
 
-  console.log(user);
+  const renderPosts = () => {
+    if (posts.length === 0) {
+      return <h2> No posts yet! </h2>;
+    } else {
+      return (
+        <div className="posts">
+          {posts.map((post) => {
+            return <Post post={post} key={post._id} />;
+          })}
+        </div>
+      );
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="profile mb-4">
         <div className="profile-info mb-2">
-          <h1 className="mr-4">{user.name}</h1>
+          <h1 className="mr-4">{user.username}</h1>
           <h4 className="user-email">{user.email}</h4>
         </div>
         <span> Joined on {user.joinDate} </span>
@@ -35,16 +48,12 @@ const Profile = (props) => {
             <span> Followers </span>
           </h3>
           <h3>
-            {user.followings && user.followings.length}
+            {user.following && user.following.length}
             <span> Following</span>
           </h3>
         </div>
       </div>
-      <div className="posts">
-        {posts.map((post) => {
-          return <Post post={post} key={post._id} />;
-        })}
-      </div>
+      {renderPosts()}
     </React.Fragment>
   );
 };

@@ -58,7 +58,7 @@ const Login = (props) => {
       .post(apiEndPoint + "users", { username, password, email })
       .then((response) => {
         localStorage.setItem("token", response.headers['x-auth-token']);
-        props.history.push("/");
+        window.location("/");
       })
       .catch((e) => {
         console.log(e);

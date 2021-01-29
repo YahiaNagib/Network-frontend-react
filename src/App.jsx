@@ -11,13 +11,15 @@ import Register from "./components/register";
 
 function App() {
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
 
   useEffect(() => {
     const jwt = localStorage.getItem("token");
-    const user = jwtDecode(jwt);
-    setUser(user);
-    console.log(user);
+    try {
+      const user = jwtDecode(jwt);
+      setUser(user);
+    }
+    catch {}
   },[])
 
   return (
