@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import apiEndPoint from "../services/appService";
 
 function CreatePost(props) {
-  const apiEndPoint = "http://localhost:4000/api/";
+
   const [content, setContent] = useState([]);
 
   const handleChange = (e) => {
@@ -19,7 +20,9 @@ function CreatePost(props) {
       .post(apiEndPoint + "posts", { content }, { headers })
       .then((response) => {
         console.log(response);
+        props.addPost(response.data);
       });
+
 
     e.preventDefault();
   };

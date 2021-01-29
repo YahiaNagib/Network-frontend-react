@@ -9,10 +9,12 @@ const Profile = (props) => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
+    // get the posts of this user
     axios.get(apiEndPoint + "posts/user/" + id).then((response) => {
       setPosts(response.data);
     });
 
+    // get the data of this user
     axios.get(apiEndPoint + "users/" + id).then((response) => {
       setUser(response.data);
     });

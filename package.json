@@ -9,6 +9,7 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
+    "joi": "^17.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

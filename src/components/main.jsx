@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import CreatePost from "./CreatePost";
 import axios from "axios";
 import Post from "./post";
+import apiEndPoint from "../services/appService";
 
 function Main() {
-  const apiEndPoint = "http://localhost:4000/api/";
-
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -14,9 +13,15 @@ function Main() {
     });
   }, []);
 
+  const addPost = (post) => {
+    setPosts((prevPosts) => {
+      return [post, ...prevPosts];
+    });
+  };
+
   return (
     <div>
-      <CreatePost />
+      <CreatePost addPost={addPost} />
       {posts.map((post) => {
         return <Post post={post} key={post._id} />;
       })}

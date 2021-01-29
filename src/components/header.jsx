@@ -1,32 +1,23 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function Header() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <a className="navbar-brand" href="/">
+      <NavLink className="navbar-brand" to="/">
         Network
-      </a>
+      </NavLink>
       <div className="ml-auto">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <a className="nav-link" href="/">
-              <strong>Yahia</strong>
-            </a>
+            <NavLink className="nav-link" to="/login">
+              Login
+            </NavLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/">
-              All Posts
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/">
-              Following
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/">
-              Log Out
-            </a>
+            <NavLink className="nav-link" to="/register">
+              Register
+            </NavLink>
           </li>
         </ul>
       </div>
