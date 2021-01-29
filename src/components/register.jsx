@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
+import Input from "./common/input";
 
 const Register = () => {
   const [account, setAccount] = useState({
     username: "",
     password: "",
   });
+
+  const [errors, setErrors] = useState({
+    username: "",
+    password: ""
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,25 +27,36 @@ const Register = () => {
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
+          <Input
             name="username"
+            label="Username"
+            id="username"
             type="text"
             value={account.username}
-            className="form-control"
             onChange={handleChange}
+            error={errors.username}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={account.password}
-            className="form-control"
+        <Input
+            name="username"
+            label="Username"
+            id="username"
+            type="text"
+            value={account.username}
             onChange={handleChange}
+            error={errors.username}
+          />
+        </div>
+        <div className="form-group">
+        <Input
+            name="username"
+            label="Username"
+            id="username"
+            type="text"
+            value={account.username}
+            onChange={handleChange}
+            error={errors.username}
           />
         </div>
         <button className="btn btn-primary">Register</button>
