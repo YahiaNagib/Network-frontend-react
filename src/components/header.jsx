@@ -40,7 +40,7 @@ function Header({ user }) {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/register">
+                <NavLink className="nav-link" to="/logout">
                   Logout
                 </NavLink>
               </li>

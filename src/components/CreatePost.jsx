@@ -3,8 +3,7 @@ import axios from "axios";
 import apiEndPoint from "../services/appService";
 
 function CreatePost(props) {
-
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState("");
 
   const handleChange = (e) => {
     setContent(e.currentTarget.value);
@@ -12,17 +11,16 @@ function CreatePost(props) {
 
   const handleSubmit = (e) => {
     const headers = {
-      "x-auth-token": localStorage.getItem("token")
+      "x-auth-token": localStorage.getItem("token"),
     };
 
     axios
       .post(apiEndPoint + "posts", { content }, { headers })
       .then((response) => {
-        console.log(response);
         props.addPost(response.data);
       });
 
-
+    setContent("");
     e.preventDefault();
   };
 
@@ -35,6 +33,7 @@ function CreatePost(props) {
         rows="5"
         className="form-control mb-3 post-content-area"
         required
+        value={content}
         onChange={handleChange}
       ></textarea>
       <input

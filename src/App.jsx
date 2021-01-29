@@ -8,6 +8,7 @@ import Main from "./components/main";
 import Profile from "./components/profile";
 import Login from "./components/login";
 import Register from "./components/register";
+import Logout from './components/logout';
 
 function App() {
 
@@ -31,7 +32,8 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/profile/:id" component={Profile} />
-            <Route path="/" component={Main} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/" render={(props) => <Main user={user} {...props}/>} />
           </Switch>
         </div>
       </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import Post from "./post";
 import apiEndPoint from "../services/appService";
 
-function Main() {
+function Main({ user }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,8 @@ function Main() {
 
   return (
     <div>
-      <CreatePost addPost={addPost} />
+      {user && <CreatePost addPost={addPost} />}
+      <h2> All Posts </h2>
       {posts.map((post) => {
         return <Post post={post} key={post._id} />;
       })}
