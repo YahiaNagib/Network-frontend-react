@@ -4,7 +4,7 @@ import Joi from "joi-browser";
 import apiEndPoint from "./../services/appService";
 import axios from "axios";
 
-const Login = () => {
+const Login = (props) => {
   const [account, setAccount] = useState({
     username: "",
     email: "",
@@ -57,7 +57,8 @@ const Login = () => {
     axios
       .post(apiEndPoint + "users", { username, password, email })
       .then((response) => {
-        console.log(response);
+        localStorage.setItem("token", response.headers['x-auth-token']);
+        props.history.push("/");
       })
       .catch((e) => {
         console.log(e);

@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Route, Switch } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -9,9 +10,19 @@ import Login from "./components/login";
 import Register from "./components/register";
 
 function App() {
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("token");
+    const user = jwtDecode(jwt);
+    setUser(user);
+    console.log(user);
+  },[])
+
   return (
     <React.Fragment>
-      <Header />
+      <Header user={user}/>
       <div className="body">
         <div className="site-container">
           <Switch>

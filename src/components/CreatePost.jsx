@@ -12,8 +12,7 @@ function CreatePost(props) {
 
   const handleSubmit = (e) => {
     const headers = {
-      "x-auth-token":
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDExZTk3MGQwMWRhZjM0MjBkZmE3NjciLCJpYXQiOjE2MTE4NDU5NTl9.L81Lz6h8vzjkT4MKaFw0AqlR8EVM2RvyalaULQrjwvE",
+      "x-auth-token": localStorage.getItem("token")
     };
 
     axios

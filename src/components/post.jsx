@@ -13,7 +13,7 @@ function Post(props) {
     <div className="post">
             <div className="post-owner">
                 <h2 className="post-username">
-                     <NavLink className="post-username" to={`/profile/${user && user._id}`}>{user && user.name}</NavLink>
+                     <NavLink className="post-username" to={`/profile/${user && user._id}`}>{user && user.username}</NavLink>
                      </h2>
                 <p className="user-email">{user && user.email}</p>
                 <p className="post-date">{date.substring(0,10)}</p>

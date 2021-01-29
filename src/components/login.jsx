@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Input from "./common/input";
 import Joi from "joi-browser";
+import apiEndPoint from "./../services/appService";
+import axios from "axios";
 
-const Login = () => {
+const Login = (props) => {
   const [account, setAccount] = useState({
     username: "",
     password: "",
@@ -46,6 +48,14 @@ const Login = () => {
     if (errorMessage) {
       setErrors(errorMessage);
     }
+    const { username, password } = account;
+    axios
+      .post(apiEndPoint + "auth", { username, password })
+      .then((response) => {
+        const jwt = response.data;
+        localStorage.setItem("token", jwt);
+        props.history.push("/");
+      });
   };
 
   const handleChange = (e) => {
