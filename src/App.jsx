@@ -4,22 +4,23 @@ import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Main from './components/main';
+import Profile from './components/profile';
 
 function App() {
 
   return (
-    <div>
+    <React.Fragment>
       <Header />
       <div className="body">
         <div className="site-container">
           <Switch>
+            <Route path="/profile/:id" component={Profile} />
             <Route path="/" component={Main}/>
-            <Route path="/profile/:id" />
           </Switch>
         </div>
       </div>
       <Footer />
-    </div>
+    </React.Fragment>
   );
 }
 

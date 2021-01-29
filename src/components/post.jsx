@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function Post(props) {
   const { user, date, content, likes } = props.post;
@@ -10,7 +11,9 @@ function Post(props) {
   return (
     <div className="post">
             <div className="post-owner">
-                <h2 className="post-username"> <a className="post-username" href="#">{user.name}</a></h2>
+                <h2 className="post-username">
+                     <NavLink className="post-username" to={`/profile/${user._id}`}>{user.name}</NavLink>
+                     </h2>
                 <p className="user-email">{user.email}</p>
                 <p className="post-date">{date}</p>
             </div>
