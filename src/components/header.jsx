@@ -35,6 +35,14 @@ function Header({ user }) {
                 </NavLink>
               </li>
               <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  to="/"
+                >
+                  All posts
+                </NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink className="nav-link" to="/register">
                   Following
                 </NavLink>

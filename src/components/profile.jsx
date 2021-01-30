@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
+import auth from "../services/authService";
 import axios from "axios";
 import Post from "./post";
 
 const Profile = (props) => {
   const apiEndPoint = "http://localhost:4000/api/";
   const id = props.match.params.id;
+  const authUser = auth.getCurrentUser();
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState([]);
+
+  console.log(authUser.following.includes(user._id));
 
   useEffect(() => {
     // get the posts of this user

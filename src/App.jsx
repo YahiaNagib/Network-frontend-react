@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
+import auth from "./services/authService";
 import jwtDecode from "jwt-decode";
 import "./App.css";
 import Header from "./components/header";
@@ -9,18 +10,14 @@ import Profile from "./components/profile";
 import Login from "./components/login";
 import Register from "./components/register";
 import Logout from './components/logout';
+import ProtectedRoute from './components/common/protectedRoute';
 
 function App() {
 
   const [user, setUser] = useState();
 
   useEffect(() => {
-    const jwt = localStorage.getItem("token");
-    try {
-      const user = jwtDecode(jwt);
-      setUser(user);
-    }
-    catch {}
+    setUser(auth.getCurrentUser());
   },[])
 
   return (
@@ -31,9 +28,13 @@ function App() {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/profile/:id" component={Profile} />
+            <ProtectedRoute path="/profile/:id" component={Profile}/>
+            {/* <Route path="/profile/:id" render={(props) => {
+              if (!user) return <Redirect to="/login"/>
+              return <Profile user={user} {...props}/>
+            } } /> */}
             <Route path="/logout" component={Logout} />
-            <Route path="/" render={(props) => <Main user={user} {...props}/>} />
+            <Route path="/" exact render={(props) => <Main user={user} {...props}/>} />
           </Switch>
         </div>
       </div>

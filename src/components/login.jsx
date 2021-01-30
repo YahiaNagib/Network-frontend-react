@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Input from "./common/input";
 import Joi from "joi-browser";
-import apiEndPoint from "./../services/appService";
-import axios from "axios";
+import auth from "../services/authService";
 
 const Login = (props) => {
   const [account, setAccount] = useState({
@@ -41,7 +40,7 @@ const Login = (props) => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errorMessage = validate();
 
@@ -49,13 +48,24 @@ const Login = (props) => {
       setErrors(errorMessage);
     }
     const { username, password } = account;
-    axios
-      .post(apiEndPoint + "auth", { username, password })
-      .then((response) => {
-        const jwt = response.data;
-        localStorage.setItem("token", jwt);
-        window.location = "/";
-      });
+    try {
+      await auth.login(username, password);
+      window.location = "/";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        setErrors({ password: ex.response.data });
+      }
+    }
+    // axios
+    //   .post(apiEndPoint + "auth", { username, password })
+    //   .then((response) => {
+    //     const jwt = response.data;
+    //     localStorage.setItem("token", jwt);
+    //     window.location = "/";
+    //   })
+    //   .catch((e) => {
+    //     setErrors({password: "Invalid username or password"})
+    //   });
   };
 
   const handleChange = (e) => {
