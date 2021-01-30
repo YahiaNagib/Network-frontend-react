@@ -24,7 +24,7 @@ function Main({ user }) {
       {user && <CreatePost addPost={addPost} />}
       <h2> All Posts </h2>
       {posts.map((post) => {
-        return <Post post={post} key={post._id} />;
+        return <Post post={post} key={post._id} authUser={user} />;
       })}
     </div>
   );

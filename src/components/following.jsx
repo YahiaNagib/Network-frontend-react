@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import auth from "../services/authService";
 import axios from "axios";
 import Post from "./post";
 import apiEndPoint from "../services/appService";
