@@ -1,7 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import auth from "../services/authService";
 
-function Header({ user }) {
+function Header() {
+  const user = auth.getCurrentUser();
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <NavLink className="navbar-brand" to="/">

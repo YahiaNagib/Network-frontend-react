@@ -24,7 +24,13 @@ export function logout() {
 export function getCurrentUser() {
     try {
         const jwt = localStorage.getItem(tokenKey);
-        return jwtDecode(jwt)
+        const user = jwtDecode(jwt);
+        // http.get(apiEndPoint + "users/" + user._id).then((response) => {
+        //     const {following, followers} = response.data;
+        //     user.following = following;
+        //     user.followers = followers;
+        //   });
+        return user
     }
     catch (ex) {
         return null;

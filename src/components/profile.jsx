@@ -6,23 +6,32 @@ import Post from "./post";
 const Profile = (props) => {
   const apiEndPoint = "http://localhost:4000/api/";
   const id = props.match.params.id;
-  const authUser = auth.getCurrentUser();
   const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState([]);
-
-  console.log(authUser.following.includes(user._id));
+  const [user, setUser] = useState({});
+  const [authUser, setAuthUser] = useState({});
+  const [isFollowed, setIsFollowed] = useState(false);
+  const [followingNum, setFollowingNum] = useState(0);
 
   useEffect(() => {
-    // get the posts of this user
-    axios.get(apiEndPoint + "posts/user/" + id).then((response) => {
-      setPosts(response.data);
-    });
-
-    // get the data of this user
-    axios.get(apiEndPoint + "users/" + id).then((response) => {
-      setUser(response.data);
-    });
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    const { _id: authId } = auth.getCurrentUser();
+
+    const { data: authUser } = await axios.get(apiEndPoint + "users/" + authId);
+    setAuthUser(authUser);
+    // get the posts of this user
+    const { data: posts } = await axios.get(apiEndPoint + "posts/user/" + id);
+    setPosts(posts);
+    // get the data of this user
+    const { data: user } = await axios.get(apiEndPoint + "users/" + id);
+    setUser(user);
+
+    setIsFollowed(authUser.following.includes(user._id) ? true : false);
+
+    setFollowingNum(user.followers.length);
+  };
 
   const renderPosts = () => {
     if (posts.length === 0) {
@@ -38,21 +47,49 @@ const Profile = (props) => {
     }
   };
 
+  const renderFollow = () => {
+    if (user && authUser && authUser._id === user._id) return null;
+    return (
+      <React.Fragment>
+        <form onSubmit={followSubmit}>
+          <input
+            type="submit"
+            className="btn btn-primary"
+            value={isFollowed ? "Unfollow" : "Follow"}
+          />
+        </form>
+      </React.Fragment>
+    );
+  };
+
+  const followSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .put(apiEndPoint + "follow", { id1: authUser._id, id2: user._id })
+      .then(() => {
+        setFollowingNum((prevNum) => {
+          return isFollowed ? prevNum - 1 : prevNum + 1;
+        });
+        setIsFollowed(!isFollowed);
+      });
+  };
+
   return (
     <React.Fragment>
       <div className="profile mb-4">
         <div className="profile-info mb-2">
-          <h1 className="mr-4">{user.username}</h1>
-          <h4 className="user-email">{user.email}</h4>
+          <h1 className="mr-4">{user && user.username}</h1>
+          <h4 className="user-email">{user && user.email}</h4>
+          {renderFollow()}
         </div>
-        <span> Joined on {user.joinDate} </span>
+        <span> Joined on {user && user.joinDate} </span>
         <div className="profile-info mt-2">
           <h3 className="mr-4">
-            {user.followers && user.followers.length}
+            {followingNum}
             <span> Followers </span>
           </h3>
           <h3>
-            {user.following && user.following.length}
+            {user && user.following && user.following.length}
             <span> Following</span>
           </h3>
         </div>
