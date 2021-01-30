@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import auth from "./services/authService";
-import jwtDecode from "jwt-decode";
 import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -11,6 +10,7 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Logout from './components/logout';
 import ProtectedRoute from './components/common/protectedRoute';
+import Following from './components/following';
 
 function App() {
 
@@ -28,7 +28,8 @@ function App() {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <ProtectedRoute path="/profile/:id" component={Profile}/>
+            <ProtectedRoute exact path="/profile/:id" component={Profile}/>
+            <ProtectedRoute path="/following/:id" component={Following}/>
             {/* <Route path="/profile/:id" render={(props) => {
               if (!user) return <Redirect to="/login"/>
               return <Profile user={user} {...props}/>

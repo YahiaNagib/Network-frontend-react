@@ -45,7 +45,7 @@ function Header() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/register">
+                <NavLink className="nav-link" to={`/following/${user && user._id}`}>
                   Following
                 </NavLink>
               </li>
