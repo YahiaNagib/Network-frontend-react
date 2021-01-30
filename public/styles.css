@@ -84,7 +84,7 @@
 }
 
 .edit-btn {
-  padding: 0;
+  padding: 0 !important;
 }
 
 /* end edit form */
