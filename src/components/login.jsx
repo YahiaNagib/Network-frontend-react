@@ -4,21 +4,26 @@ import Joi from "joi-browser";
 import auth from "../services/authService";
 
 const Login = (props) => {
+  // store username and password 
   const [account, setAccount] = useState({
     username: "",
     password: "",
   });
 
+  // store errors in the state
   const [errors, setErrors] = useState({
     username: "",
     password: "",
   });
 
+  // create schema to verify inputs
   const schema = {
     username: Joi.string().required().label("Username"),
     password: Joi.string().required().label("Password"),
   };
 
+
+  // this method is used to validate a single property while typing
   const validateProperty = ({ name, value }) => {
     const obj = { [name]: value };
     const _schema = { [name]: schema[name] };
