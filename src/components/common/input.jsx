@@ -1,5 +1,6 @@
 import React from "react";
 
+// Extact the name, label, error from props
 const Input = ({ name, label, error, ...rest }) => {
   return (
     <div className="form-group">

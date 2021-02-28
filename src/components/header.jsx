@@ -3,14 +3,18 @@ import { NavLink } from "react-router-dom";
 import auth from "../services/authService";
 
 function Header() {
+  // To get the authenticated user.. it returns null if the user
+  // is not logged in
   const user = auth.getCurrentUser();
   return (
+    
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <NavLink className="navbar-brand" to="/">
         Network
       </NavLink>
       <div className="ml-auto">
         <ul className="navbar-nav ml-auto">
+          {/* if the user is not logged in, view Login and Register links */}
           {!user && (
             <React.Fragment>
               <li className="nav-item">
@@ -26,6 +30,7 @@ function Header() {
             </React.Fragment>
           )}
 
+          {/* if the user is logged in */}
           {user && (
             <React.Fragment>
               <li className="nav-item">

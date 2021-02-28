@@ -5,25 +5,31 @@ import apiEndPoint from "./../services/appService";
 import axios from "axios";
 
 const Login = (props) => {
+  // To store username, password and email
   const [account, setAccount] = useState({
     username: "",
     email: "",
     password: "",
   });
 
+  // To save errors
   const [errors, setErrors] = useState({
     username: "",
     email: "",
     password: "",
   });
 
+  // To validate the form
   const schema = {
     username: Joi.string().required().min(5).label("Username"),
     email: Joi.string().required().email().label("Email"),
     password: Joi.string().required().min(5).label("Password"),
   };
 
+  // To validate single property on typing
   const validateProperty = ({ name, value }) => {
+    // When validating single property, we need to create a new schema which has
+    // this property (_schema) and compare it with the date from the form (obj) 
     const obj = { [name]: value };
     const _schema = { [name]: schema[name] };
     const result = Joi.validate(obj, _schema, { abortEarly: true });
@@ -32,6 +38,7 @@ const Login = (props) => {
     return result.error.details[0].message;
   };
 
+  // To validate the form on submitting
   const validate = () => {
     const result = Joi.validate(account, schema, { abortEarly: false });
 
@@ -44,6 +51,7 @@ const Login = (props) => {
     return errors;
   };
 
+  // On submitting the form
   const handleSubmit = (e) => {
     e.preventDefault();
     const errorMessage = validate();
@@ -53,7 +61,9 @@ const Login = (props) => {
     }
 
     const { username, password, email } = account;
-
+    // Post request to register the user
+    // then saving the auth-token in the local storage
+    // to sign the user in immediately
     axios
       .post(apiEndPoint + "users", { username, password, email })
       .then((response) => {
@@ -68,6 +78,8 @@ const Login = (props) => {
       });
   };
 
+  // When the content of the form changes, first validate then 
+  // change the error and account states.
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
     const errorMessage = validateProperty(e.currentTarget);
@@ -86,7 +98,7 @@ const Login = (props) => {
       return { ...prevAccount, [name]: value };
     });
   };
-  // call the server and redirct
+
   return (
     <div>
       <h1>Register</h1>

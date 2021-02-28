@@ -3,6 +3,9 @@ import auth from "../services/authService";
 import axios from "axios";
 import Post from "./post";
 
+// To access the profile of a user which contains all their posts
+// Display follow or unfollow button if this propfile's user is not 
+// the authenticated user
 const Profile = (props) => {
   const apiEndPoint = "http://localhost:4000/api/";
   const id = props.match.params.id;
@@ -17,17 +20,20 @@ const Profile = (props) => {
   }, []);
 
   const fetchData = async () => {
-    const { _id: authId } = auth.getCurrentUser();
 
+    // Get the authenticated user and store it in authUser
+    const { _id: authId } = auth.getCurrentUser();
     const { data: authUser } = await axios.get(apiEndPoint + "users/" + authId);
     setAuthUser(authUser);
-    // get the posts of this user
+
+    // get the posts of the required user
     const { data: posts } = await axios.get(apiEndPoint + "posts/user/" + id);
     setPosts(posts);
-    // get the data of this user
+    // get the data of required user
     const { data: user } = await axios.get(apiEndPoint + "users/" + id);
     setUser(user);
 
+    // Show follow or unfollow based on if the auth
     setIsFollowed(authUser.following.includes(user._id) ? true : false);
 
     setFollowingNum(user.followers.length);

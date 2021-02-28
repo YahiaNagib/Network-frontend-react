@@ -23,7 +23,7 @@ const Login = (props) => {
   };
 
 
-  // this method is used to validate a single property while typing
+  // This method is used to validate a single property while typing
   const validateProperty = ({ name, value }) => {
     const obj = { [name]: value };
     const _schema = { [name]: schema[name] };
@@ -45,15 +45,17 @@ const Login = (props) => {
     return errors;
   };
 
+  // Submitting the form
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validating the form on submit
     const errorMessage = validate();
-
     if (errorMessage) {
       setErrors(errorMessage);
     }
     const { username, password } = account;
     try {
+      // Logging the user
       await auth.login(username, password);
       window.location = "/";
     } catch (ex) {
@@ -73,8 +75,12 @@ const Login = (props) => {
     //   });
   };
 
+  // When the content of the form changes, first validate then 
+  // change the error and account states.
   const handleChange = (e) => {
+    // Extact name and value from the input which triggers the onchange event
     const { name, value } = e.currentTarget;
+    // To validate the inputs on changing inputs
     const errorMessage = validateProperty(e.currentTarget);
 
     if (errorMessage) {
@@ -87,11 +93,12 @@ const Login = (props) => {
       });
     }
 
+    // [name] is the property name (username or password)
     setAccount((prevAccount) => {
       return { ...prevAccount, [name]: value };
     });
   };
-  // call the server and redirct
+
   return (
     <div>
       <h1>Login</h1>
