@@ -39,6 +39,7 @@ const Profile = (props) => {
     setFollowingNum(user.followers.length);
   };
 
+  // To view posts
   const renderPosts = () => {
     if (posts.length === 0) {
       return <h2> No posts yet! </h2>;
@@ -53,7 +54,10 @@ const Profile = (props) => {
     }
   };
 
+  // Follow button
   const renderFollow = () => {
+    // If the profile's user is the same as the authenticated user
+    // do not show the button
     if (user && authUser && authUser._id === user._id) return null;
     return (
       <React.Fragment>
@@ -68,8 +72,12 @@ const Profile = (props) => {
     );
   };
 
+  // When clicking on the follow/unfollow button
   const followSubmit = (e) => {
     e.preventDefault();
+    // Call the server to edit the following lists of the user
+    // If successfull change the number of following users
+    // and change the follow button to unfollow or vice versa
     axios
       .put(apiEndPoint + "follow", { id1: authUser._id, id2: user._id })
       .then(() => {

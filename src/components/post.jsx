@@ -5,6 +5,7 @@ import http from "../services/httpService";
 import auth from "../services/authService";
 
 function Post(props) {
+  // Extracting properties from the post
   const { _id: postId, user, date, content, likes } = props.post;
 
   const [likeCount, setLikeCount] = useState(0);
@@ -18,7 +19,8 @@ function Post(props) {
 
   const authUser = auth.getCurrentUser();
 
-  //console.log(likes);
+  // If the user is not authenticated (anonymous user), then
+  // the like button can not be triggered.
 
   const renderLike = () => {
     if (!authUser) {
@@ -28,7 +30,10 @@ function Post(props) {
         </React.Fragment>
       );
     }
-
+    // If the user is authenticated then add 'liked' class to
+    // the i element which makes the button be triggered.
+    // If the authenticated user is in the likes list of the post
+    // then view the red heart.
     return (
       <i
         onClick={handleClick}
@@ -40,6 +45,10 @@ function Post(props) {
       ></i>
     );
   };
+
+  // Clicking on the like button.
+  // The 'liked', 'fa-heart' and 'fa-heart-o' will be toggled
+  // depending if the user had already liked the post or not.
   const handleClick = (e) => {
     if (e.currentTarget.classList.contains("liked")) {
       e.currentTarget.classList.remove("fa-heart");
@@ -66,6 +75,8 @@ function Post(props) {
     }
   };
 
+  // To view the edit button.
+  // First check if the post owner is the same as the authenticated user
   const renderEdit = () => {
     if (authUser._id === user._id) {
       return (
@@ -80,9 +91,12 @@ function Post(props) {
       );
     }
   };
+  // To change the editedContent state when typing
   const handleContentChange = (e) => {
     setEditedContent(e.currentTarget.value);
   };
+
+  // To handle the submit of edit post form.
   const handleEditSubmit = (e) => {
     e.preventDefault();
     http
@@ -92,6 +106,7 @@ function Post(props) {
         setIsEditing(false);
       });
   };
+
   return (
     <div className="post">
       <div className="post-owner">
@@ -127,15 +142,6 @@ function Post(props) {
           className="btn btn-primary submit-btn"
         />
       </form>
-      {/* {% if user == post.user %}
-                <button class="btn btn-link edit-btn">Edit</button>
-                <form class="edit-form" action="{% url 'save-post' %}" method="POST">
-                    <input name="id" value="{{post.id}}" hidden>
-                    <textarea name="content" cols="50" rows="5" class="form-control mb-3 post-content-area" required>{{post.content}}</textarea>
-                    <input type="submit" value="Edit" class="btn btn-primary submit-btn">
-                </form>
-            {% endif %} */}
-
       <p
         className="post-content"
         style={{ display: !isEditing ? "block" : "none" }}
